@@ -1,64 +1,35 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title" />
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar :clipped-left="clipped" fixed app>
-      <v-toolbar-side-icon @click="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>{{ `chevron_${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </v-toolbar>
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-tile @click.native="right = !right">
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2019</span>
-    </v-footer>
+    <v-bottom-nav
+      :class="[toolbarColor]"
+      fixed
+      :active.sync="bottomNav"
+      :value="true"
+      dark
+    >
+      <v-btn to="/news" value="news">
+        <span>NEWS</span>
+        <v-badge v-model="show" color="red">
+          <span v-if="newPostCount > 0" slot="badge">{{ newPostCount }}</span>
+          <v-icon>announcement</v-icon>
+        </v-badge>
+      </v-btn>
+      <v-btn to="/workouts" value="music">
+        <span>WORKOUTS</span>
+        <v-icon>fitness_center</v-icon>
+      </v-btn>
+      <v-btn to="/channel" value="channel">
+        <span>TANYA TV</span>
+        <v-icon>ondemand_video</v-icon>
+      </v-btn>
+      <v-btn value="contact" @click="openNavDrawer()">
+        <span>MORE</span>
+        <v-icon>more_horiz</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 
@@ -66,25 +37,30 @@
 export default {
   data() {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      showFullAudio: false,
+      floatingVideo: false,
+      episode: null,
+      navPadding: 'nav-padding',
+      toolbarColor: 'toolbar-color',
+      audioView: 'margin-nav',
+      show: true,
+      bottomNav: 'news',
+      prevHeight: 0,
+      hydrated: false,
+      aboutPage: null,
+      cvPage: null,
+      companyPage: null,
+      privacy: false,
+      deployedTimeout: 600000,
+      newPostCount: 0,
+      newsTypeList: [],
+      audioPlayer: false,
+      audioSource: '',
+      isIphoneX: false,
+      player: null,
+      playing: true,
+      audioLoaded: false,
+      musicDialog: false
     }
   }
 }

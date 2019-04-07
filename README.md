@@ -1,6 +1,6 @@
-# nuxt-pwa
+# nuxt-pwa (Work in Progress)
 
-> My supreme Nuxt.js project
+> PWA using Nuxt.js
 
 ## Build Setup
 

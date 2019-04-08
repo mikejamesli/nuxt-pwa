@@ -81,11 +81,11 @@
           <v-layout row wrap>
             <v-flex xs12 sm6 class="mt-3 text-xs-center">
               <div class="section-headline">iOS (Safari)</div>
-              <v-img src="~/assets/install/ios.gif"></v-img>
+              <v-img :src="require(`@/assets/install/ios.gif`)"></v-img>
             </v-flex>
             <v-flex xs12 sm6 class="mt-3 text-xs-center">
               <div class="section-headline">Android (Chrome)</div>
-              <v-img src="~/assets/install/android.gif"></v-img>
+              <v-img :src="require(`@/assets/install/android.gif`)"></v-img>
             </v-flex>
           </v-layout>
         </v-card-text>

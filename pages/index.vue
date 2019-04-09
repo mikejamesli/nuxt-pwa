@@ -118,6 +118,7 @@
 import Video from '@/components/Video.vue'
 import Section from '@/components/Section.vue'
 import Utils from '@/mixins/utils'
+import gql from 'graphql-tag'
 export default {
   name: 'Home',
   components: {
@@ -136,6 +137,32 @@ export default {
       groupPadding: 'group-padding'
     }
   },
+  apollo: {
+    hello: gql`
+      query {
+        hello {
+          name
+          role
+          type
+          photoUrls
+          videoUrls
+          themeColor
+          themeColorName
+          backgroundColor
+          logo
+          manifestBackgroundColor
+          manifestThemeColor
+          manifestIcon
+          qrCode
+          appName
+          indexTitle
+          indexDescription
+          status
+          appUrl
+        }
+      }
+    `
+  },
   computed: {},
   mounted() {
     // eslint-disable-next-line nuxt/no-env-in-hooks
@@ -151,9 +178,9 @@ export default {
   created() {
     this.checkIfIphoneX()
     // this.$store.commit('updateLastOpenedPage', 'welcome')
-    import('aos').then(AOS => AOS.init())
     // eslint-disable-next-line nuxt/no-globals-in-created
     if (process.client) {
+      import('aos').then(AOS => AOS.init())
       // eslint-disable-next-line nuxt/no-globals-in-created
       window.onscroll = null
     }

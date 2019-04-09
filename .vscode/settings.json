@@ -23,5 +23,6 @@
   ],
   "eslint.autoFixOnSave": true,
   "editor.tabSize": 2,
-  "editor.tabCompletion": "on"
+  "editor.tabCompletion": "on",
+  "vetur.format.defaultFormatter.html": "none"
 }
